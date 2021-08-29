@@ -1,0 +1,38 @@
+SELECT car.VIN,customer.`name`
+FROM components,purchase,car,customer
+WHERE offer_date>='2018-01-01'
+AND offer_date<='2018-04-01'
+AND supplier='Getrag'
+AND components.model = car.model
+AND production_date>='2018-01-01'
+AND production_date<='2018-04-01'
+AND car.VIN=purchase.VIN
+AND customer.pid=purchase.pid
+
+/*查询去年销售额最大的品牌*/
+SELECT brand,SUM(price) income
+FROM configuration,purchase,car
+WHERE configuration.model=car.model
+AND car.VIN=purchase.VIN
+AND sale_date>='2020-01-01'
+AND sale_date<='2020-12-31'
+GROUP BY brand
+ORDER BY SUM(price) DESC
+LIMIT 0,2;
+
+SELECT brand,AVG(price) income
+FROM configuration,purchase,car
+WHERE configuration.model=car.model
+AND car.VIN=purchase.VIN
+AND sale_date>='2020-01-01'
+AND sale_date<='2020-12-31'
+GROUP BY brand
+ORDER BY SUM(price) DESC
+LIMIT 0,2;
+
+SELECT model,COUNT(model) AS num, MONTH(sale_date) AS `month`
+FROM car,purchase
+WHERE car.model='哈弗H2'
+AND car.VIN = purchase.VIN
+GROUP BY MONTH(sale_date)
+LIMIT 0,1

@@ -1,0 +1,30 @@
+CREATE TABLE IF NOT EXISTS Configuration (	model VARCHAR(255) NOT NULL PRIMARY KEY,
+	color VARCHAR(255) NOT NULL,
+	engine-capacity DECIMAL(10,2) NOT NULL comment '发动机排量'
+);
+CREATE TABLE IF NOT EXISTS Car (	VIN VARCHAR(32) NOT NULL UNIQUE PRIMARY KEY,
+	production-date DATE NOT NULL comment '生产日期',
+	model VARCHAR(255) NOT NULL,
+	brand VARCHAR(255) NOT NULL
+);
+CREATE TABLE IF NOT EXISTS Components (	cid INT(10) NOT NULL comment '零件编号',
+	model VARCHAR(255) NOT NULL,
+	name VARCHAR(255) NOT NULL,
+	type VARCHAR(64) NOT NULL,
+	supplier VARCHAR(255) comment '供应商',
+	manufacturing-date DATE NOT NULL comment '制造日期'
+);
+CREATE TABLE IF NOT EXISTS Purchase (	VIN VARCHAR(32) NOT NULL,
+	pid INT(8) NOT NULL,
+	sale-date DATE NOT NULL comment '销售日期',
+	purchase-date DATE NOT NULL comment '采购日期',
+	price DECIMAL(10,2) default  NULL comment '单位（万元）',
+	dealer VARCHAR(255) default  NULL comment '经销商'
+);
+CREATE TABLE IF NOT EXISTS Customer (	pid INT(8) NOT NULL PRIMARY KEY,
+	name VARCHAR(255) NOT NULL,
+	sex VARCHAR(6) NOT NULL,
+	address VARCHAR(255),
+	telephone VARCHAR(20),
+	yearly-income DECIMAL(10,2) default  NULL comment '单位：万元'
+);
